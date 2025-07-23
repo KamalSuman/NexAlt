@@ -46,7 +46,7 @@ hackathon/
 
 1. Clone the repository:
    ```
-   git clone https://github.com/KamalSuman/NexAlt.git
+   git clone https://github.com/devrj17/NexAlt.git
    cd NexAlt
    ```
 
