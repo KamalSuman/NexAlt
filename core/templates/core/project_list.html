@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Projects - Hackathon Project{% endblock %}
+
+{% block content %}
+<h2>All Projects</h2>
+
+{% if projects %}
+    <div class="project-list">
+    {% for project in projects %}
+        <div class="project-card">
+            <h3><a href="{% url 'project_detail' project.id %}">{{ project.title }}</a></h3>
+            <p>{{ project.description|truncatewords:30 }}</p>
+            <p class="date">Created: {{ project.created_at|date:"F j, Y" }}</p>
+        </div>
+    {% endfor %}
+    </div>
+{% else %}
+    <p>No projects available yet.</p>
+{% endif %}
+{% endblock %}

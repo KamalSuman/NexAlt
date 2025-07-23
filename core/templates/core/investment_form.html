@@ -1,0 +1,165 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Investment Profile - Hackathon Project{% endblock %}
+
+{% block content %}
+<h2>Create Investment Profile</h2>
+
+<div class="form-container">
+    <form id="investmentForm" action="{% url 'create_investment_profile' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="age">Age:</label>
+            <input type="number" id="age" name="age" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="income">Annual Income:</label>
+            <input type="number" id="income" name="income" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="capital">Capital:</label>
+            <input type="number" id="capital" name="capital" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="expenses">Annual Expenses:</label>
+            <input type="number" id="expenses" name="expenses" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="emi">EMI:</label>
+            <input type="number" id="emi" name="emi" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="liquidity_need">Liquidity Need:</label>
+            <input type="number" id="liquidity_need" name="liquidity_need" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="dependents">Number of Dependents:</label>
+            <input type="number" id="dependents" name="dependents" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="confidence">Confidence (0-1):</label>
+            <input type="range" id="confidence" name="confidence" min="0" max="1" step="0.1" required>
+            <span id="confidenceValue">0.5</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="knowledge">Knowledge (0-1):</label>
+            <input type="range" id="knowledge" name="knowledge" min="0" max="1" step="0.1" required>
+            <span id="knowledgeValue">0.5</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="comfort_with_negatives">Comfort with Negatives (0-1):</label>
+            <input type="range" id="comfort_with_negatives" name="comfort_with_negatives" min="0" max="1" step="0.1" required>
+            <span id="comfortValue">0.5</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="market_awareness">Market Awareness (0-1):</label>
+            <input type="range" id="market_awareness" name="market_awareness" min="0" max="1" step="0.1" required>
+            <span id="awarenessValue">0.5</span>
+        </div>
+        
+        <div class="form-group">
+            <label for="experience">Experience (0-1):</label>
+            <input type="range" id="experience" name="experience" min="0" max="1" step="0.1" required>
+            <span id="experienceValue">0.5</span>
+        </div>
+        
+        <button type="submit" class="submit-btn">Submit</button>
+    </form>
+</div>
+
+<div id="result" class="result-container" style="display: none;">
+    <h3>Investment Allocation Result</h3>
+    <pre id="resultJson"></pre>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update range input values
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+    rangeInputs.forEach(input => {
+        const valueSpan = document.getElementById(input.id + 'Value');
+        valueSpan.textContent = input.value;
+        
+        input.addEventListener('input', function() {
+            valueSpan.textContent = this.value;
+        });
+    });
+    
+    // Form submission
+    const form = document.getElementById('investmentForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = {
+            age: parseInt(document.getElementById('age').value),
+            income: parseFloat(document.getElementById('income').value),
+            capital: parseFloat(document.getElementById('capital').value),
+            expenses: parseFloat(document.getElementById('expenses').value),
+            emi: parseFloat(document.getElementById('emi').value),
+            liquidity_need: parseFloat(document.getElementById('liquidity_need').value),
+            dependents: parseInt(document.getElementById('dependents').value),
+            confidence: parseFloat(document.getElementById('confidence').value),
+            knowledge: parseFloat(document.getElementById('knowledge').value),
+            comfort_with_negatives: parseFloat(document.getElementById('comfort_with_negatives').value),
+            market_awareness: parseFloat(document.getElementById('market_awareness').value),
+            experience: parseFloat(document.getElementById('experience').value)
+        };
+        
+        fetch('/api/investment-profile/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify(formData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result_url) {
+                // Redirect to the allocation result page
+                window.location.href = data.result_url;
+            } else {
+                // Display the result in the current page
+                const resultDiv = document.getElementById('result');
+                const resultJson = document.getElementById('resultJson');
+                resultJson.textContent = JSON.stringify(data, null, 2);
+                resultDiv.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while submitting the form.');
+        });
+    });
+    
+    // Function to get CSRF token
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+});
+</script>
+{% endblock %}

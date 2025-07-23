@@ -1,0 +1,144 @@
+{% extends 'core/base.html' %}
+{% load core_extras %}
+
+{% block title %}Investment Allocation - Hackathon Project{% endblock %}
+
+{% block content %}
+<h2>Your Investment Allocation</h2>
+
+<div class="result-container">
+    <div class="profile-summary">
+        <h3>Your Profile</h3>
+        <table class="profile-table">
+            <tr>
+                <th>Age</th>
+                <td>{{ profile.age }}</td>
+            </tr>
+            <tr>
+                <th>Income</th>
+                <td>₹{{ profile.income|floatformat:0 }}</td>
+            </tr>
+            <tr>
+                <th>Capital</th>
+                <td>₹{{ profile.capital|floatformat:0 }}</td>
+            </tr>
+            <tr>
+                <th>Expenses</th>
+                <td>₹{{ profile.expenses|floatformat:0 }}</td>
+            </tr>
+            <tr>
+                <th>EMI</th>
+                <td>₹{{ profile.emi|floatformat:0 }}</td>
+            </tr>
+            <tr>
+                <th>Dependents</th>
+                <td>{{ profile.dependents }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="allocation-results">
+        <h3>Recommended Asset Allocation</h3>
+        <div class="allocation-chart">
+            <canvas id="allocationChart"></canvas>
+        </div>
+        <table class="allocation-table">
+            <tr>
+                <th>Asset Class</th>
+                <th>Allocation</th>
+            </tr>
+            {% for asset, percentage in allocation.items %}
+            <tr>
+                <td>{{ asset|title }}</td>
+                <td>{{ percentage }}%</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+    {% if recommended_instruments %}
+    <div class="recommended-instruments">
+        <h3>Recommended Instruments</h3>
+        {% if risk_profile %}
+        <div class="risk-profile">
+            <p><strong>Risk Profile:</strong> <span class="risk-badge risk-{{ risk_profile }}">{{ risk_profile|title }}</span></p>
+        </div>
+        {% endif %}
+        <div class="instrument-container">
+            {% for asset_class, instruments in recommended_instruments.items %}
+            {% if instruments %}
+            <div class="instrument-category">
+                <h4>{{ asset_class|title }} ({{ allocation|get_item:asset_class }}%)</h4>
+                <ul class="instrument-list">
+                    {% for instrument in instruments %}
+                    <li>
+                        {% if asset_class == 'equity' and '(' in instrument %}
+                            {% with ticker=instrument|split:'('|first weight=instrument|split:'('|last|cut:')' %}
+                                <span class="ticker">{{ ticker|trim }}</span>
+                                <span class="weight">{{ weight }}</span>
+                            {% endwith %}
+                        {% else %}
+                            {{ instrument }}
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<div class="actions">
+    <a href="{% url 'investment_form' %}" class="btn">Create New Profile</a>
+    <a href="{% url 'home' %}" class="btn">Back to Home</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const ctx = document.getElementById('allocationChart').getContext('2d');
+    
+    // Extract data from the template
+    const labels = [];
+    const data = [];
+    const backgroundColors = [
+        '#FF6384', // Red for Equity
+        '#36A2EB', // Blue for Debt
+        '#FFCE56', // Yellow for Gold
+        '#4BC0C0', // Teal for Real Estate
+        '#9966FF', // Purple for Crypto
+        '#C9CBCF'  // Grey for Cash
+    ];
+    
+    {% for asset, percentage in allocation.items %}
+        labels.push('{{ asset|title }}');
+        data.push({{ percentage }});
+    {% endfor %}
+    
+    const chart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: backgroundColors,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'right',
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}
