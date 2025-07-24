@@ -24,7 +24,7 @@ hackathon/
 │   ├── admin.py            # Admin configuration
 │   ├── apps.py             # App configuration
 │   ├── models.py           # Data models
-│   ├── tests.py            # Unit tests
+│   ├── serializers.py      # API serializers
 │   ├── urls.py             # URL routing
 │   ├── utils.py            # Utility functions
 │   └── views.py            # View controllers
@@ -34,9 +34,14 @@ hackathon/
 │   ├── urls.py
 │   └── wsgi.py
 ├── scripts/                # Investment allocation scripts
-│   ├── equity_optimizer.py # Equity portfolio optimization
+│   ├── bond_monte_carlo.py # Bond portfolio optimization
+│   ├── crypto_monte_carlo.py # Crypto portfolio optimization
+│   ├── currency_monte_carlo.py # Currency portfolio optimization
+│   ├── equity_monte_carlo.py # Equity portfolio optimization
 │   ├── prediction_allocation.py # Asset allocation prediction
-│   └── top_instruments.py  # Instrument recommendations
+│   ├── top_instruments.py  # Instrument recommendations
+│   ├── *.csv               # Market data files
+│   └── *.joblib            # ML model files
 ├── manage.py               # Django management script
 ├── requirements.txt        # Project dependencies
 └── README.md               # This file

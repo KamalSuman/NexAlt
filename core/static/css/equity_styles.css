@@ -1,0 +1,244 @@
+/* Monte Carlo Recommendations Styles */
+.equity-recommendations {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+    width: 100%;
+}
+
+.equity-recommendations h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.equity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.equity-table th,
+.equity-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.equity-table th {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.stock-symbol {
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: 'Courier New', monospace;
+}
+
+.stock-weight {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.stock-amount {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.equity-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Crypto Table Styles */
+.crypto-recommendations {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+    width: 100%;
+}
+
+.crypto-recommendations h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.crypto-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.crypto-table th,
+.crypto-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.crypto-table th {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.crypto-symbol {
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: 'Courier New', monospace;
+}
+
+.crypto-weight {
+    color: #f5576c;
+    font-weight: 600;
+}
+
+.crypto-amount {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.crypto-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Currency Table Styles */
+.currency-recommendations {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+    width: 100%;
+}
+
+.currency-recommendations h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.currency-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.currency-table th,
+.currency-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.currency-table th {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.currency-symbol {
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: 'Courier New', monospace;
+}
+
+.currency-weight {
+    color: #4facfe;
+    font-weight: 600;
+}
+
+.currency-amount {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.currency-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+/* Bond Table Styles */
+.bond-recommendations {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    border: 1px solid #e9ecef;
+    width: 100%;
+}
+
+.bond-recommendations h3 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.bond-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.bond-table th,
+.bond-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.bond-table th {
+    background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
+    color: white;
+    font-weight: 600;
+}
+
+.bond-name {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.bond-symbol {
+    font-weight: 600;
+    color: #2c3e50;
+    font-family: 'Courier New', monospace;
+}
+
+.bond-weight {
+    color: #43cea2;
+    font-weight: 600;
+}
+
+.bond-amount {
+    color: #27ae60;
+    font-weight: 600;
+}
+
+.bond-table tr:hover {
+    background-color: #f8f9fa;
+}

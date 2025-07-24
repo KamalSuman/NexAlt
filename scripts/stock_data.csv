@@ -1,0 +1,114 @@
+Symbol,Company,Sector,Market_Cap_Cr,PE_Ratio,Expected_Return,Volatility,Risk_Score,Beta,Dividend_Yield
+TCS.NS,Tata Consultancy Services,Information Technology,125000.50,28.45,15.20,22.30,4,1.12,2.10
+INFY.NS,Infosys Limited,Information Technology,98000.25,24.80,12.80,25.10,5,1.05,2.50
+WIPRO.NS,Wipro Limited,Information Technology,45000.75,18.90,10.50,28.40,6,0.95,1.80
+HCLTECH.NS,HCL Technologies,Information Technology,52000.30,22.15,14.30,24.80,5,1.08,1.90
+TECHM.NS,Tech Mahindra,Information Technology,38000.60,19.75,11.90,26.70,5,1.15,2.20
+HDFCBANK.NS,HDFC Bank,Banking,180000.80,22.50,16.80,20.50,4,1.20,1.50
+ICICIBANK.NS,ICICI Bank,Banking,95000.40,18.30,14.60,24.20,5,1.25,1.80
+SBIN.NS,State Bank of India,Banking,65000.20,12.80,18.50,32.10,6,1.45,3.20
+AXISBANK.NS,Axis Bank,Banking,58000.90,15.60,13.40,28.90,6,1.35,2.10
+KOTAKBANK.NS,Kotak Mahindra Bank,Banking,72000.15,25.40,15.70,22.80,4,1.18,1.20
+HINDUNILVR.NS,Hindustan Unilever,FMCG,85000.35,45.20,12.30,18.60,3,0.85,2.80
+ITC.NS,ITC Limited,FMCG,78000.25,28.90,14.80,21.40,4,0.92,4.50
+NESTLEIND.NS,Nestle India,FMCG,42000.80,55.30,16.20,19.80,4,0.78,2.60
+BRITANNIA.NS,Britannia Industries,FMCG,35000.60,38.70,13.90,22.10,4,0.88,1.90
+DABUR.NS,Dabur India,FMCG,28000.45,32.80,11.70,20.30,4,0.82,2.40
+MARUTI.NS,Maruti Suzuki,Automotive,68000.90,24.60,17.40,26.80,5,1.22,1.60
+TATAMOTORS.NS,Tata Motors,Automotive,45000.30,18.20,19.80,35.60,7,1.58,2.80
+M&M.NS,Mahindra & Mahindra,Automotive,38000.70,22.40,16.90,28.40,6,1.35,2.20
+BAJAJ-AUTO.NS,Bajaj Auto,Automotive,42000.85,28.90,14.50,24.70,5,1.15,3.10
+HEROMOTOCO.NS,Hero MotoCorp,Automotive,35000.55,26.30,13.20,23.90,5,1.08,3.50
+SUNPHARMA.NS,Sun Pharmaceutical,Pharmaceuticals,58000.40,22.80,15.60,24.50,5,1.12,1.80
+DRREDDY.NS,Dr Reddys Laboratories,Pharmaceuticals,48000.25,18.90,17.20,26.30,5,1.18,1.40
+CIPLA.NS,Cipla Limited,Pharmaceuticals,35000.80,24.60,14.80,23.70,5,1.05,2.10
+DIVISLAB.NS,Divis Laboratories,Pharmaceuticals,42000.60,32.40,18.90,28.80,6,1.25,1.20
+BIOCON.NS,Biocon Limited,Pharmaceuticals,28000.35,28.70,16.40,31.20,6,1.35,0.80
+RELIANCE.NS,Reliance Industries,Energy,195000.80,18.60,20.30,22.40,4,1.28,2.40
+ONGC.NS,Oil & Natural Gas Corp,Energy,85000.45,12.40,22.80,28.90,6,1.45,4.20
+IOC.NS,Indian Oil Corporation,Energy,68000.30,8.90,25.60,32.10,6,1.52,3.80
+BPCL.NS,Bharat Petroleum,Energy,45000.70,14.20,21.40,29.70,6,1.38,4.50
+HINDPETRO.NS,Hindustan Petroleum,Energy,38000.55,11.80,23.90,31.50,6,1.42,3.90
+TATASTEEL.NS,Tata Steel,Metals,52000.40,15.60,24.80,38.20,8,1.68,2.10
+HINDALCO.NS,Hindalco Industries,Metals,48000.25,18.90,22.40,35.60,7,1.55,1.80
+JSWSTEEL.NS,JSW Steel,Metals,42000.80,16.30,26.70,36.90,7,1.62,1.50
+SAIL.NS,Steel Authority of India,Metals,28000.60,12.80,28.90,42.30,8,1.75,3.20
+COALINDIA.NS,Coal India,Mining,65000.35,8.90,18.60,25.40,5,1.25,6.80
+BHARTIARTL.NS,Bharti Airtel,Telecom,88000.70,32.40,13.80,21.60,4,1.15,1.20
+IDEA.NS,Vodafone Idea,Telecom,15000.25,8.60,35.80,58.90,10,2.25,0.00
+ULTRACEMCO.NS,UltraTech Cement,Cement,78000.45,28.90,16.40,24.80,5,1.22,1.80
+SHREECEM.NS,Shree Cement,Cement,42000.80,22.60,18.20,26.70,5,1.18,1.60
+ACC.NS,ACC Limited,Cement,35000.60,18.40,19.80,28.90,6,1.35,2.40
+BAJAJFINSV.NS,Bajaj Finserv,Financial Services,68000.90,24.80,17.60,26.40,5,1.28,1.40
+LT.NS,Larsen & Toubro,Engineering,85000.35,22.40,15.90,23.80,5,1.20,1.90
+ASIANPAINT.NS,Asian Paints,Paints,72000.55,38.60,14.20,20.90,4,0.95,2.60
+POWERGRID.NS,Power Grid Corp,Utilities,58000.40,12.80,16.80,22.30,4,1.08,4.20
+NTPC.NS,NTPC Limited,Power,68000.25,14.60,18.40,24.70,5,1.15,3.80
+GRASIM.NS,Grasim Industries,Cement,45000.80,16.90,20.60,27.80,6,1.32,2.10
+ADANIPORTS.NS,Adani Ports,Infrastructure,52000.60,18.40,22.30,29.40,6,1.38,1.80
+JSWENERGY.NS,JSW Energy,Power,28000.35,22.80,24.80,32.60,7,1.45,1.20
+TATAPOWER.NS,Tata Power,Power,35000.70,15.60,26.40,34.80,7,1.52,2.40
+GODREJCP.NS,Godrej Consumer,FMCG,32000.45,28.90,12.80,19.60,4,0.88,2.20
+MARICO.NS,Marico Limited,FMCG,28000.80,32.40,11.40,18.90,3,0.82,2.80
+COLPAL.NS,Colgate Palmolive,FMCG,25000.60,42.60,10.80,17.40,3,0.75,3.20
+PIDILITIND.NS,Pidilite Industries,Chemicals,38000.90,45.80,13.60,21.20,4,0.92,1.60
+BERGEPAINT.NS,Berger Paints,Paints,32000.25,38.90,14.80,22.80,4,0.98,1.80
+INDUSINDBK.NS,IndusInd Bank,Banking,48000.70,16.80,15.40,26.90,5,1.32,1.90
+FEDERALBNK.NS,Federal Bank,Banking,25000.45,12.60,17.80,29.40,6,1.38,2.40
+BANDHANBNK.NS,Bandhan Bank,Banking,22000.80,14.90,19.60,31.20,6,1.45,1.20
+IDFCFIRSTB.NS,IDFC First Bank,Banking,18000.35,18.40,21.80,33.60,7,1.52,0.80
+PNB.NS,Punjab National Bank,Banking,28000.60,8.90,24.60,38.90,8,1.68,2.80
+CANBK.NS,Canara Bank,Banking,25000.40,9.80,23.40,36.70,7,1.58,3.20
+BANKBARODA.NS,Bank of Baroda,Banking,32000.70,10.60,22.80,35.40,7,1.55,3.60
+UNIONBANK.NS,Union Bank of India,Banking,18000.25,11.40,25.90,39.80,8,1.72,4.20
+INDIANB.NS,Indian Bank,Banking,15000.80,12.20,27.60,41.20,8,1.78,3.80
+CENTRALBK.NS,Central Bank of India,Banking,12000.45,13.80,29.40,43.60,9,1.85,4.60
+IOB.NS,Indian Overseas Bank,Banking,8000.60,15.60,31.80,46.90,9,1.92,5.20
+SOUTHBANK.NS,South Indian Bank,Banking,6000.35,18.90,28.70,38.40,8,1.65,3.40
+RBLBANK.NS,RBL Bank,Banking,15000.70,22.40,26.80,35.60,7,1.58,1.80
+YESBANK.NS,Yes Bank,Banking,12000.25,28.60,32.40,48.90,10,2.15,0.60
+AUBANK.NS,AU Small Finance Bank,Banking,18000.80,24.80,24.60,32.80,7,1.48,1.40
+EQUITASBNK.NS,Equitas Small Finance Bank,Banking,8000.45,26.90,27.80,36.40,7,1.55,2.20
+UJJIVAN.NS,Ujjivan Financial Services,Financial Services,6000.60,32.40,29.60,38.90,8,1.68,1.80
+BAJFINANCE.NS,Bajaj Finance,Financial Services,85000.35,28.90,18.40,24.60,5,1.25,1.20
+CHOLAFIN.NS,Cholamandalam Investment,Financial Services,32000.70,22.60,20.80,27.40,5,1.35,1.60
+LICHSGFIN.NS,LIC Housing Finance,Financial Services,28000.45,18.40,22.60,29.80,6,1.42,2.80
+HUDCO.NS,Housing & Urban Development,Financial Services,15000.80,14.90,25.40,32.60,7,1.48,3.40
+PFC.NS,Power Finance Corporation,Financial Services,38000.25,12.80,19.80,26.90,5,1.32,4.20
+RECLTD.NS,REC Limited,Financial Services,42000.60,11.60,21.40,28.40,6,1.38,3.80
+IRFC.NS,Indian Railway Finance Corp,Financial Services,25000.35,16.80,23.60,30.70,6,1.45,2.60
+IRCTC.NS,Indian Railway Catering,Services,18000.70,32.40,16.80,24.90,5,1.18,1.40
+CONCOR.NS,Container Corporation,Logistics,22000.45,18.90,20.40,27.60,5,1.28,2.20
+GAIL.NS,GAIL India Limited,Energy,48000.80,14.60,18.90,25.80,5,1.22,3.60
+PETRONET.NS,Petronet LNG,Energy,35000.60,16.40,17.60,23.40,5,1.15,4.80
+MGL.NS,Mahanagar Gas,Energy,28000.25,22.80,15.80,21.90,4,1.08,2.40
+IGL.NS,Indraprastha Gas,Energy,32000.90,24.60,14.60,20.70,4,1.05,2.80
+GSPL.NS,Gujarat State Petronet,Energy,18000.45,18.90,19.40,26.80,5,1.25,3.20
+ATGL.NS,Adani Total Gas,Energy,25000.70,28.40,21.80,29.60,6,1.35,1.80
+ADANIGREEN.NS,Adani Green Energy,Renewable Energy,42000.35,45.80,26.40,38.90,8,1.68,0.40
+SUZLON.NS,Suzlon Energy,Renewable Energy,8000.60,32.60,34.80,52.40,10,2.25,0.80
+RPOWER.NS,Reliance Power,Power,6000.25,28.90,38.60,56.80,10,2.45,1.20
+ADANIPOWER.NS,Adani Power,Power,15000.80,22.40,32.40,45.60,9,1.95,2.40
+TORNTPOWER.NS,Torrent Power,Power,22000.45,18.60,24.80,31.20,6,1.42,2.80
+CESC.NS,CESC Limited,Power,18000.70,16.90,26.60,33.80,7,1.48,3.60
+NHPC.NS,NHPC Limited,Power,28000.35,14.20,22.40,28.90,6,1.35,4.20
+SJVN.NS,SJVN Limited,Power,25000.60,12.80,24.60,30.40,6,1.38,3.80
+THERMAX.NS,Thermax Limited,Engineering,18000.25,24.80,18.90,26.70,5,1.22,1.60
+BHEL.NS,Bharat Heavy Electricals,Engineering,32000.90,16.40,28.40,38.60,8,1.65,2.40
+BEL.NS,Bharat Electronics,Defence,28000.45,22.60,20.80,27.90,5,1.28,2.80
+HAL.NS,Hindustan Aeronautics,Defence,35000.70,18.90,24.60,31.40,6,1.42,1.80
+BEML.NS,BEML Limited,Engineering,15000.35,20.40,26.80,34.60,7,1.52,2.20
+RVNL.NS,Rail Vikas Nigam,Infrastructure,22000.80,16.80,29.40,36.80,7,1.58,1.60
+IRCON.NS,IRCON International,Infrastructure,18000.25,18.60,27.60,34.20,7,1.48,2.40
+NBCC.NS,NBCC India Limited,Construction,12000.60,22.40,31.80,42.60,8,1.75,1.80
+NCC.NS,NCC Limited,Construction,8000.45,24.80,34.60,46.90,9,1.88,1.20
+GMRINFRA.NS,GMR Infrastructure,Infrastructure,15000.70,28.90,32.40,44.80,9,1.82,0.80
+IRB.NS,IRB Infrastructure,Infrastructure,18000.35,26.60,30.80,41.20,8,1.72,1.40
+SADBHAV.NS,Sadbhav Engineering,Infrastructure,6000.80,32.40,36.90,49.60,10,2.05,0.60
+HCC.NS,Hindustan Construction,Construction,4000.25,38.60,42.80,58.40,10,2.35,0.40
+JKCEMENT.NS,JK Cement,Cement,25000.60,22.80,19.60,27.40,5,1.28,2.20
+RAMCOCEM.NS,Ramco Cements,Cement,22000.45,24.60,21.40,29.80,6,1.35,1.80
+HEIDELBERG.NS,HeidelbergCement India,Cement,18000.70,26.90,23.60,32.40,6,1.42,1.60
+JKLAKSHMI.NS,JK Lakshmi Cement,Cement,15000.35,28.40,25.80,34.90,7,1.48,1.40
+ORIENTCEM.NS,Orient Cement,Cement,12000.80,32.60,28.40,38.60,8,1.65,1.20
+PRISMCEM.NS,Prism Johnson,Cement,8000.25,35.80,31.60,42.80,8,1.78,0.80

@@ -1,10 +1,18 @@
 {% extends 'core/base.html' %}
 {% load core_extras %}
+{% load static %}
 
-{% block title %}Investment Allocation - Hackathon Project{% endblock %}
+{% block title %}Your Portfolio - NexAlt{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/equity_styles.css' %}">
+{% endblock %}
 
 {% block content %}
-<h2>Your Investment Allocation</h2>
+<div class="page-header">
+    <h2>Your Personalized Investment Portfolio</h2>
+    <p>AI-optimized allocation based on your financial profile</p>
+</div>
 
 <div class="result-container">
     <div class="profile-summary">
@@ -46,19 +54,103 @@
             <tr>
                 <th>Asset Class</th>
                 <th>Allocation</th>
+                <th>Amount</th>
             </tr>
-            {% for asset, percentage in allocation.items %}
+            {% for asset, data in allocation.items %}
             <tr>
                 <td>{{ asset|title }}</td>
-                <td>{{ percentage }}%</td>
+                <td>{% if data.percentage %}{{ data.percentage }}%{% else %}{{ data }}%{% endif %}</td>
+                <td>₹{% if data.amount %}{{ data.amount|floatformat:0 }}{% else %}{{ profile.capital|mul:data|div:100|floatformat:0 }}{% endif %}</td>
             </tr>
             {% endfor %}
         </table>
     </div>
     
+    {% if equity_recommendations %}
+    <div class="equity-recommendations">
+        <h3>Equity Stock Recommendations (Monte Carlo Optimized)</h3>
+        <table class="equity-table">
+            <tr>
+                <th>Symbol</th>
+                <th>Weight</th>
+                <th>Amount</th>
+            </tr>
+            {% for stock in equity_recommendations %}
+            <tr>
+                <td class="stock-symbol">{{ stock.symbol }}</td>
+                <td class="stock-weight">{{ stock.weight|floatformat:1 }}%</td>
+                <td class="stock-amount">₹{{ stock.amount|floatformat:0 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    
+    {% if crypto_recommendations %}
+    <div class="crypto-recommendations">
+        <h3>Crypto Recommendations (Monte Carlo Optimized)</h3>
+        <table class="crypto-table">
+            <tr>
+                <th>Symbol</th>
+                <th>Weight</th>
+                <th>Amount</th>
+            </tr>
+            {% for crypto in crypto_recommendations %}
+            <tr>
+                <td class="crypto-symbol">{{ crypto.symbol }}</td>
+                <td class="crypto-weight">{{ crypto.weight|floatformat:1 }}%</td>
+                <td class="crypto-amount">₹{{ crypto.amount|floatformat:0 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    
+    {% if currency_recommendations %}
+    <div class="currency-recommendations">
+        <h3>Currency Recommendations for Cash (Monte Carlo Optimized)</h3>
+        <table class="currency-table">
+            <tr>
+                <th>Currency</th>
+                <th>Weight</th>
+                <th>Amount</th>
+            </tr>
+            {% for currency in currency_recommendations %}
+            <tr>
+                <td class="currency-symbol">{{ currency.symbol }}</td>
+                <td class="currency-weight">{{ currency.weight|floatformat:1 }}%</td>
+                <td class="currency-amount">₹{{ currency.amount|floatformat:0 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    
+    {% if bond_recommendations %}
+    <div class="bond-recommendations">
+        <h3>Bond Recommendations for Debt (Monte Carlo Optimized)</h3>
+        <table class="bond-table">
+            <tr>
+                <th>Bond Name</th>
+                <th>Symbol</th>
+                <th>Weight</th>
+                <th>Amount</th>
+            </tr>
+            {% for bond in bond_recommendations %}
+            <tr>
+                <td class="bond-name">{{ bond.name }}</td>
+                <td class="bond-symbol">{{ bond.symbol }}</td>
+                <td class="bond-weight">{{ bond.weight|floatformat:1 }}%</td>
+                <td class="bond-amount">₹{{ bond.amount|floatformat:0 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endif %}
+    
     {% if recommended_instruments %}
     <div class="recommended-instruments">
-        <h3>Recommended Instruments</h3>
+        <h3>Other Asset Class Recommendations</h3>
         {% if risk_profile %}
         <div class="risk-profile">
             <p><strong>Risk Profile:</strong> <span class="risk-badge risk-{{ risk_profile }}">{{ risk_profile|title }}</span></p>
@@ -66,21 +158,12 @@
         {% endif %}
         <div class="instrument-container">
             {% for asset_class, instruments in recommended_instruments.items %}
-            {% if instruments %}
+            {% if instruments and asset_class != 'equity' and asset_class != 'crypto' and asset_class != 'cash' and asset_class != 'debt' %}
             <div class="instrument-category">
-                <h4>{{ asset_class|title }} ({{ allocation|get_item:asset_class }}%)</h4>
+                <h4>{{ asset_class|title }} ({% if allocation|get_item:asset_class.percentage %}{{ allocation|get_item:asset_class.percentage }}%{% else %}{{ allocation|get_item:asset_class }}%{% endif %})</h4>
                 <ul class="instrument-list">
                     {% for instrument in instruments %}
-                    <li>
-                        {% if asset_class == 'equity' and '(' in instrument %}
-                            {% with ticker=instrument|split:'('|first weight=instrument|split:'('|last|cut:')' %}
-                                <span class="ticker">{{ ticker|trim }}</span>
-                                <span class="weight">{{ weight }}</span>
-                            {% endwith %}
-                        {% else %}
-                            {{ instrument }}
-                        {% endif %}
-                    </li>
+                    <li>{{ instrument }}</li>
                     {% endfor %}
                 </ul>
             </div>
@@ -92,8 +175,8 @@
 </div>
 
 <div class="actions">
-    <a href="{% url 'investment_form' %}" class="btn">Create New Profile</a>
-    <a href="{% url 'home' %}" class="btn">Back to Home</a>
+    <a href="{% url 'investment_form' %}" class="btn btn-primary">Create New Profile</a>
+    <a href="{% url 'home' %}" class="btn btn-secondary">Back to Home</a>
 </div>
 {% endblock %}
 
@@ -115,9 +198,9 @@ document.addEventListener('DOMContentLoaded', function() {
         '#C9CBCF'  // Grey for Cash
     ];
     
-    {% for asset, percentage in allocation.items %}
+    {% for asset, data in allocation.items %}
         labels.push('{{ asset|title }}');
-        data.push({{ percentage }});
+        data.push({% if data.percentage %}{{ data.percentage }}{% else %}{{ data }}{% endif %});
     {% endfor %}
     
     const chart = new Chart(ctx, {
