@@ -1,0 +1,49 @@
+Portfolio Management System (PMS) – Simple Overview
+Main Concept
+
+We aim to build a model that uses an individual’s Risk Capacity and Risk Tolerance to create and manage their investment portfolio.
+This model takes around 10–12 inputs to calculate important financial metrics like:
+
+CVaR (Conditional Value at Risk)
+VaR (Value at Risk)
+Risk Budgeting
+Expected Returns
+Using Monte Carlo Simulation, we can generate a range of possible portfolio outcomes to help make better decisions.
+
+1. Planning Step
+This is the starting point where we gather important information such as:
+
+Risk tolerance (via a psychological questionnaire)
+Return expectations
+Investment time horizon
+Tax details
+Liquidity needs (how easily they want to access their money)
+Income needs
+Unique personal circumstances
+All this information helps us create an Investment Policy Statement (IPS) — a formal document that defines the investor’s goals and acts as a roadmap for investing.
+
+IPS should be updated regularly
+For retail investors, needs change more frequently. So, we plan to use NLP (Natural Language Processing) to read financial messages (like emails or reports) and automatically detect any changes in their situation to keep the IPS up to date.
+2. Execution Step
+Once the IPS is ready:
+
+We analyze risk and return for different asset classes (like equity, debt, gold, etc.)
+Based on macroeconomic data, we choose which asset classes are more promising.
+Within each class, we select the most attractive securities.
+If we manage a discretionary account, we can also include:
+Alternative Investments: Hedge Funds, Commodities, Private Capital
+(These can follow a profit-sharing model)
+For non-discretionary accounts, we only give investment recommendations for regular asset classes.
+We’ll use:
+
+Monte Carlo Simulation
+Sharpe Ratio
+CVaR
+Minimum Variance Portfolio
+to analyze and build the best possible investment plan.
+3. Feedback & Monitoring Step
+Investments are not “set-and-forget.” We will:
+
+Continuously monitor changes in the risk-return profile of the asset classes
+Adjust the portfolio weights automatically to reflect new realities
+This keeps the portfolio optimized and aligned with the client’s updated financial situation and market conditions.
