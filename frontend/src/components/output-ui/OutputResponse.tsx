@@ -212,8 +212,19 @@ export default function OutputResponse() {
     
     const timer = setTimeout(() => {
       if (storedData) {
-        setData(JSON.parse(storedData));
+        const parsedData = JSON.parse(storedData);
+        console.log('=== STORED DATA DEBUG ===');
+        console.log('Parsed Data:', parsedData);
+        console.log('Data Keys:', Object.keys(parsedData));
+        if (parsedData.currency_recommendations) {
+          console.log('Currency Recommendations Found:', parsedData.currency_recommendations);
+        } else {
+          console.log('No Currency Recommendations in stored data');
+        }
+        console.log('=== END STORED DATA DEBUG ===');
+        setData(parsedData);
       } else {
+        console.log('No stored data, using sample data');
         setData(sampleData);
       }
       setLoading(false);

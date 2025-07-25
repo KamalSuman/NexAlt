@@ -233,6 +233,36 @@ const InvestmentResults: React.FC<InvestmentResultsProps> = ({ data }) => {
               </div>
             </div>
           )}
+
+          {/* Currency/Cash Recommendations */}
+          {data.currency_recommendations && data.currency_recommendations.length > 0 && (
+            <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
+              <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <IndianRupee className="w-5 h-5 mr-2 text-green-500" />
+                Currency Recommendations
+              </h3>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-gray-600">
+                      <th className="text-left py-2">Currency</th>
+                      <th className="text-right py-2">Weight</th>
+                      <th className="text-right py-2">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.currency_recommendations.map((item, index) => (
+                      <tr key={index} className="border-b border-gray-700">
+                        <td className="py-2 font-medium">{item.symbol}</td>
+                        <td className="text-right py-2">{item.weight.toFixed(1)}%</td>
+                        <td className="text-right py-2">₹{item.amount.toLocaleString()}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

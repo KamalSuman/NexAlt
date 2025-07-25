@@ -58,7 +58,16 @@ export const submitFormData = async (
     }
 
     const data = await response.json();
-    console.log("Submission successful:", data);
+    console.log("=== API RESPONSE DEBUG ===");
+    console.log("Full API Response:", data);
+    console.log("Response Keys:", Object.keys(data));
+    if (data.allocation) {
+      console.log("Allocation:", data.allocation);
+    }
+    if (data.currency_recommendations) {
+      console.log("Currency Recommendations:", data.currency_recommendations);
+    }
+    console.log("=== END API RESPONSE DEBUG ===");
     return data;
   } catch (error) {
     console.error("Error submitting form:", error);

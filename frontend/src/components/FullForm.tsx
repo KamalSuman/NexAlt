@@ -18,21 +18,21 @@ const FullForm = () => {
   const [formType, setFormType] = useState(0);
 
   const [basicInfo, setBasicInfo] = useState({
-    age: "",
-    income: "",
-    capital: "",
-    expenses: "",
-    emi: "",
-    liquidity: "",
-    dependents: "",
-    experience: "",
+    age: "30",
+    income: "75000",
+    capital: "500000",
+    expenses: "45000",
+    emi: "15000",
+    liquidity: "50000",
+    dependents: "2",
+    experience: "3",
   });
 
   const [preferences, setPreferences] = useState({
-    confidence: 5,
+    confidence: 6,
     knowledge: 5,
-    negatives: 5,
-    awareness: 5,
+    negatives: 4,
+    awareness: 6,
   });
 
   const isBasicInfoValid = Object.values(basicInfo).every((val) => val !== "");
