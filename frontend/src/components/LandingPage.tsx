@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import LoginImg from "@/assets/login-img.jpeg";
+import LoginImgVector from "@/assets/login-im.svg";
+import BG2 from "@/assets/bg2.svg";
+import BG4 from "@/assets/bg4.svg";
+import Logo from "@/assets/logo.svg";
 import { Link } from "react-router-dom";
 
 export default function LandingPage() {
@@ -8,10 +11,24 @@ export default function LandingPage() {
   const toggleLogin = () => setShowLogin(!showLogin);
 
   return (
-    <div className="bg-gray-50 text-gray-800">
+    <div className="relative bg-gray-50 text-gray-800 overflow-hidden">
+      {/* Decorative Background Images */}
+      <img
+        src={BG4}
+        alt="Background 1"
+        className="absolute top-5 left-0 opacity-70 z-[1] pointer-events-none w-1/5"
+      />
+      <img
+        src={BG2}
+        alt="Background 2"
+        className="absolute top-40 right-0 w-1/4 opacity-70 z-[1] pointer-events-none"
+      />
       {/* Header */}
-      <header className="bg-white shadow p-6 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-blue-600">SmartPortfolio.ai</h1>
+      <header className="bg-white shadow p-3 pb-4 flex justify-between items-center">
+        <h1 className="text-3xl font-bold text-black cursor-pointer">
+          nexAlt.ai
+        </h1>
+        {/* <img src={Logo} alt="Logo" className="h-6" /> */}
         <nav>
           <ul className="flex gap-6 text-sm font-medium items-center">
             <li>
@@ -127,14 +144,14 @@ export default function LandingPage() {
           <div className="bg-white rounded-lg overflow-hidden w-full max-w-4xl flex">
             <div className="w-1/2 bg-white hidden md:flex items-center justify-center p-6">
               <img
-                src={LoginImg}
+                src={LoginImgVector}
                 alt="Login Illustration"
                 className="scale-125 ml-3"
               />
             </div>
             <div className="w-full md:w-1/2 p-8">
               <h2 className="text-3xl font-bold mb-2 text-gray-800">
-                Welcome to Sneat! 👋🏻
+                Welcome to NextAlt.ai! 👋🏻
               </h2>
               <p className="mb-6 text-gray-500">
                 Please sign in to your account and start the adventure
@@ -174,12 +191,14 @@ export default function LandingPage() {
                     Remember Me
                   </label>
                 </div>
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg"
-                >
-                  Sign In
-                </button>
+                <Link to={"/chatbot/"}>
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg"
+                  >
+                    Sign In
+                  </button>
+                </Link>
               </form>
               <p className="mt-6 text-center text-sm text-gray-600">
                 New on our platform?{" "}

@@ -178,10 +178,16 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import { Dialog, DialogTitle, DialogContent, IconButton } from "@mui/material";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  IconButton,
+  CircularProgress,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DenseTable from "../Table";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const COLORS = [
   "#0088FE",
@@ -209,7 +215,7 @@ const allocationData = Object.entries(data.allocation).map(([key, value]) => ({
   amount: value.amount,
 }));
 
-export default function OutputResponse() {
+export default function OutputResponse({}) {
   const [selectedAsset, setSelectedAsset] = useState<
     null | (typeof allocationData)[0]
   >(null);
@@ -218,9 +224,25 @@ export default function OutputResponse() {
     setSelectedAsset(allocationData[index]);
   };
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // simulate loading
+    const timer = setTimeout(() => setLoading(false), 10000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="p-10 mx-[15%]">
-      <h1 className="text-3xl font-bold mb-10">Asset Allocation</h1>
+      {loading ? (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2a2828] bg-opacity-50">
+          <CircularProgress color="secondary" />
+        </div>
+      ) : (
+        ""
+      )}
+      <h1 className="text-3xl font-bold mb-10 text-center">Asset Allocation</h1>
 
       <div className="flex flex-col md:flex-row gap-8 bg-indigo-50 border border-indigo-200 rounded-xl shadow-lg p-6">
         {/* Pie Chart Section */}
