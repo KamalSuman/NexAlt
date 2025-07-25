@@ -66,7 +66,10 @@ const FullForm = () => {
   };
 
   const handleInputChange = (field: keyof typeof basicInfo, value: string) => {
-    setBasicInfo({ ...basicInfo, [field]: value });
+    // Prevent negative values
+    if (value === '' || (Number(value) >= 0)) {
+      setBasicInfo({ ...basicInfo, [field]: value });
+    }
   };
   const [submitting, setSubmitting] = useState(false);
 
@@ -279,6 +282,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter your age"
                         value={basicInfo.age}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("age", e.target.value)
                         }
@@ -303,6 +308,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter your monthly income"
                         value={basicInfo.income}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("income", e.target.value)
                         }
@@ -325,6 +332,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter investable capital"
                         value={basicInfo.capital}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("capital", e.target.value)
                         }
@@ -347,6 +356,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter your monthly expenses"
                         value={basicInfo.expenses}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("expenses", e.target.value)
                         }
@@ -369,6 +380,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter monthly EMI amount"
                         value={basicInfo.emi}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("emi", e.target.value)
                         }
@@ -393,6 +406,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter number of dependents"
                         value={basicInfo.dependents}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("dependents", e.target.value)
                         }
@@ -415,6 +430,8 @@ const FullForm = () => {
                         type="number"
                         placeholder="Enter number of years"
                         value={basicInfo.experience}
+                        min="0"
+                        onWheel={(e) => e.currentTarget.blur()}
                         onChange={(e) =>
                           handleInputChange("experience", e.target.value)
                         }
