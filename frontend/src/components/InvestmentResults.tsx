@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { TrendingUp, DollarSign, Target, Award } from 'lucide-react';
+import { TrendingUp, IndianRupee, Target, Award } from 'lucide-react';
 
 interface AllocationData {
   percentage: number;
@@ -69,7 +69,7 @@ const InvestmentResults: React.FC<InvestmentResultsProps> = ({ data }) => {
                 <p className="text-gray-400 text-sm">Total Investment</p>
                 <p className="text-2xl font-bold">₹{totalAmount.toLocaleString()}</p>
               </div>
-              <DollarSign className="w-8 h-8 text-green-500" />
+              <IndianRupee className="w-8 h-8 text-green-500" />
             </div>
           </div>
           
@@ -208,7 +208,7 @@ const InvestmentResults: React.FC<InvestmentResultsProps> = ({ data }) => {
           {data.crypto_recommendations && data.crypto_recommendations.length > 0 && (
             <div className="bg-gray-800 rounded-lg p-6 border border-gray-700">
               <h3 className="text-xl font-semibold mb-4 flex items-center">
-                <DollarSign className="w-5 h-5 mr-2 text-yellow-500" />
+                <IndianRupee className="w-5 h-5 mr-2 text-yellow-500" />
                 Crypto Recommendations
               </h3>
               <div className="overflow-x-auto">
