@@ -1,5 +1,10 @@
 import os
 import pandas as pd
+import logging
+
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 # Import the equity optimizer module
 try:
@@ -94,11 +99,18 @@ def get_recommended_instruments(allocation, risk_profile="medium"):
     Returns:
         dict: Dictionary with asset classes as keys and lists of recommended instruments as values
     """
+    logger.info(f"=== GET_RECOMMENDED_INSTRUMENTS CALLED ===")
+    logger.info(f"Allocation: {allocation}")
+    logger.info(f"Risk profile: {risk_profile}")
+    
     # Get all top instruments from Excel file
+    logger.info("Loading top instruments from Excel file")
     all_instruments = get_top_instruments()
+    logger.info(f"Loaded instruments for {len(all_instruments)} asset classes")
     
     # Create a dictionary to store recommended instruments
     recommended = {}
+    logger.info("Processing each asset class for recommendations...")
     
     # For each asset class in the allocation
     for asset_class, percentage in allocation.items():
@@ -145,6 +157,8 @@ def get_recommended_instruments(allocation, risk_profile="medium"):
         # Get the top N instruments
         recommended[asset_class] = instruments[:num_instruments]
     
+    logger.info(f"Final recommendations for {len(recommended)} asset classes")
+    logger.info("=== GET_RECOMMENDED_INSTRUMENTS COMPLETED ===")
     return recommended
 
 # Example usage

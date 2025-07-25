@@ -5,23 +5,16 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 import json
+import logging
 
-from .models import Project, InvestmentProfile
+from .models import InvestmentProfile
 from .serializers import InvestmentProfileSerializer
 from .utils import get_investment_allocation
 
+logger = logging.getLogger(__name__)
+
 def home(request):
-    projects = Project.objects.all()
-    return render(request, 'core/home.html', {'projects': projects})
-
-class ProjectListView(ListView):
-    model = Project
-    template_name = 'core/project_list.html'
-    context_object_name = 'projects'
-
-class ProjectDetailView(DetailView):
-    model = Project
-    template_name = 'core/project_detail.html'
+    return render(request, 'core/home.html')
 
 def investment_form(request):
     """
@@ -49,7 +42,7 @@ def allocation_result(request, profile_id):
             'knowledge': profile.knowledge,
             'comfort_with_negatives': profile.comfort_with_negatives,
             'market_awareness': profile.market_awareness,
-            'experience': profile.experience
+            'experience': profile.experience,
         }
         
         # Get allocation prediction
@@ -77,67 +70,55 @@ def allocation_result(request, profile_id):
         # Add recommended instruments if available
         if 'recommended_instruments' in result:
             context['recommended_instruments'] = result['recommended_instruments']
-        
-        # Add risk profile if available
+        if 'equity_recommendations' in result:
+            context['equity_recommendations'] = result['equity_recommendations']
+        if 'crypto_recommendations' in result:
+            context['crypto_recommendations'] = result['crypto_recommendations']
+        if 'currency_recommendations' in result:
+            context['currency_recommendations'] = result['currency_recommendations']
+        if 'bond_recommendations' in result:
+            context['bond_recommendations'] = result['bond_recommendations']
         if 'risk_profile' in result:
             context['risk_profile'] = result['risk_profile']
         
         return render(request, 'core/allocation_result.html', context)
         
     except InvestmentProfile.DoesNotExist:
-        # Redirect to form if profile doesn't exist
+        logger.error(f"Profile with ID {profile_id} not found")
+        return redirect('investment_form')
+    except Exception as e:
+        logger.error(f"Error in allocation_result view: {str(e)}")
         return redirect('investment_form')
 
 @api_view(['POST'])
 def create_investment_profile(request):
     """
     Create a new investment profile from the provided data.
-    
-    Expected JSON format:
-    {
-        "age": 45,
-        "income": 240000,
-        "capital": 100000,
-        "expenses": 100000,
-        "emi": 80000,
-        "liquidity_need": 0,
-        "dependents": 4,
-        "confidence": 0.1,
-        "knowledge": 0.1,
-        "comfort_with_negatives": 0,
-        "market_awareness": 0.1,
-        "experience": 0
-    }
     """
     if request.method == 'POST':
         serializer = InvestmentProfileSerializer(data=request.data)
+        
         if serializer.is_valid():
-            # Save the investment profile
             profile = serializer.save()
-            
-            # Get the profile data for prediction
             profile_data = serializer.data
             profile_id = profile.id
             
-            # For API requests, return JSON response
-            if request.accepted_renderer.format == 'json':
-                # Get allocation prediction using utility function
-                result = get_investment_allocation(profile_data)
-                
-                if result:
-                    # Return the allocation with the profile data
-                    response_data = {
-                        'profile': serializer.data,
-                        'result_url': request.build_absolute_uri(f'/allocation-result/{profile_id}/')
-                    }
-                    # Add allocation and recommended instruments to the response
-                    response_data.update(result)
-                    return Response(response_data, status=status.HTTP_201_CREATED)
-                else:
-                    # If prediction fails, just return the profile
-                    return Response(serializer.data, status=status.HTTP_201_CREATED)
+            # Get allocation prediction using utility function
+            result = get_investment_allocation(profile_data)
             
-            # For form submissions, redirect to the allocation result page
+            if result:
+                response_data = {
+                    'profile': serializer.data,
+                    'result_url': request.build_absolute_uri(f'/allocation-result/{profile_id}/')
+                }
+                response_data.update(result)
+                logger.info(f"API SUCCESS: Profile {profile_id} created with allocation")
+                return Response(response_data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            
             return redirect('allocation_result', profile_id=profile_id)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    return Response({'error': 'Method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)

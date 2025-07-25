@@ -1,9 +1,12 @@
 {% extends 'core/base.html' %}
 
-{% block title %}Investment Profile - Hackathon Project{% endblock %}
+{% block title %}Investment Profile - NexAlt{% endblock %}
 
 {% block content %}
-<h2>Create Investment Profile</h2>
+<div class="page-header">
+    <h2>Create Your Investment Profile</h2>
+    <p>Tell us about your financial situation and investment preferences</p>
+</div>
 
 <div class="form-container">
     <form id="investmentForm" action="{% url 'create_investment_profile' %}" method="post">
@@ -73,7 +76,7 @@
             <span id="experienceValue">0.5</span>
         </div>
         
-        <button type="submit" class="submit-btn">Submit</button>
+        <button type="submit" class="submit-btn">Get My Portfolio Recommendation</button>
     </form>
 </div>
 

@@ -25,3 +25,25 @@ def trim(value):
     Usage: {{ value|trim }}
     """
     return value.strip() if value else value
+
+@register.filter
+def mul(value, arg):
+    """
+    Template filter to multiply two values.
+    Usage: {{ value|mul:arg }}
+    """
+    try:
+        return float(value) * float(arg)
+    except (ValueError, TypeError):
+        return 0
+
+@register.filter
+def div(value, arg):
+    """
+    Template filter to divide two values.
+    Usage: {{ value|div:arg }}
+    """
+    try:
+        return float(value) / float(arg)
+    except (ValueError, TypeError, ZeroDivisionError):
+        return 0

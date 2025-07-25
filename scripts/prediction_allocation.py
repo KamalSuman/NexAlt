@@ -4,13 +4,19 @@ from sklearn.preprocessing import StandardScaler
 from joblib import load
 from scipy.special import softmax
 import os
+import logging
+
+logger = logging.getLogger(__name__)
 
 # Get the absolute path to the script directory
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Load model and scaler with absolute paths
-model = load(os.path.join(SCRIPT_DIR, "trained_allocation_model.joblib"))
-scaler = load(os.path.join(SCRIPT_DIR, "scaler.joblib"))
+model_path = os.path.join(SCRIPT_DIR, "trained_allocation_model.joblib")
+scaler_path = os.path.join(SCRIPT_DIR, "scaler.joblib")
+
+model = load(model_path)
+scaler = load(scaler_path)
 
 # Asset classes
 asset_classes = ['equity', 'debt', 'gold', 'real_estate', 'crypto', 'cash']
@@ -36,13 +42,18 @@ def predict_allocation(input_data, include_instruments=True):
     X_scaled = scaler.transform(X_input)
     
     # Predict
-    predicted_raw = model.predict(X_scaled)[0]
-    normalized_weights = softmax(predicted_raw)
+    preds = model.predict(X_scaled)
+    
+    # Clip to ensure no negatives and re-normalize
+    predicted_weights = np.clip(preds, 0, None)
+    normalized_weights = predicted_weights / predicted_weights.sum()
+    normalized_weights = normalized_weights[0]  # Get first row
     
     # Create result dictionary for allocation percentages
     allocation = {}
     for asset, weight in zip(asset_classes, normalized_weights):
-        allocation[asset] = round(float(weight) * 100, 2)  # Convert to percentage with 2 decimal places
+        percentage = round(float(weight) * 100, 2)
+        allocation[asset] = percentage
     
     # Create the response dictionary
     response = {
@@ -62,9 +73,11 @@ def predict_allocation(input_data, include_instruments=True):
             risk_profile = "medium"  # Default
             
             # Use comfort_with_negatives, confidence, and experience to determine risk profile
-            risk_score = (input_data.get("comfort_with_negatives", 0) * 0.4 + 
-                         input_data.get("confidence", 0) * 0.3 + 
-                         input_data.get("experience", 0) * 0.3)
+            comfort = input_data.get("comfort_with_negatives", 0)
+            confidence = input_data.get("confidence", 0)
+            experience = input_data.get("experience", 0)
+            
+            risk_score = (comfort * 0.4 + confidence * 0.3 + experience * 0.3)
             
             if risk_score < 0.3:
                 risk_profile = "low"
@@ -75,9 +88,8 @@ def predict_allocation(input_data, include_instruments=True):
             instruments = top_instruments_module.get_recommended_instruments(allocation, risk_profile)
             response["recommended_instruments"] = instruments
             response["risk_profile"] = risk_profile
-        except Exception:
-            # If there's an error getting instruments, just continue without them
-            pass
+        except Exception as e:
+            logger.error(f"Error getting recommended instruments: {str(e)}")
     
     return response
 

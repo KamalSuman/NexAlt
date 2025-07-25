@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Hackathon Project{% endblock %}</title>
+    <title>{% block title %}NexAlt - AI Investment Advisory{% endblock %}</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block extra_css %}{% endblock %}
 </head>
 <body>
     <header>
-        <h1>Hackathon Project</h1>
+        <h1>NexAlt</h1>
+        <p class="tagline">AI-Powered Investment Advisory</p>
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'project_list' %}">Projects</a></li>
-                <li><a href="{% url 'investment_form' %}">Investment Profile</a></li>
+                <li><a href="{% url 'investment_form' %}">Get Started</a></li>
             </ul>
         </nav>
     </header>
@@ -25,7 +26,7 @@
     </main>
     
     <footer>
-        <p>&copy; 2024 Hackathon Project</p>
+        <p>&copy; 2024 NexAlt - Personalized Investment Solutions</p>
     </footer>
     
     <script src="{% static 'js/main.js' %}"></script>
