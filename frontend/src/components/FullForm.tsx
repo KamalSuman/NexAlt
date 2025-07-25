@@ -29,10 +29,10 @@ const FullForm = () => {
   });
 
   const [preferences, setPreferences] = useState({
-    confidence: 1,
-    knowledge: 1,
-    negatives: 1,
-    awareness: 1,
+    confidence: 5,
+    knowledge: 5,
+    negatives: 5,
+    awareness: 5,
   });
 
   const isBasicInfoValid = Object.values(basicInfo).every((val) => val !== "");
@@ -42,7 +42,7 @@ const FullForm = () => {
       (typeof value === "string" && !value.includes("-"))
   );
   const navigate = useNavigate();
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (formType === 0) {
@@ -52,24 +52,23 @@ const FullForm = () => {
       }
       setFormType(1);
     } else {
-      console.log("Basic Info:", basicInfo);
-      console.log("Preferences:", preferences);
-
-      submitFormData(basicInfo, preferences);
-      navigate("/chatbot/output-response");
+      setSubmitting(true);
+      try {
+        const result = await submitFormData(basicInfo, preferences);
+        localStorage.setItem('investmentResult', JSON.stringify(result));
+        navigate("/chatbot/output-response");
+      } catch (error) {
+        alert("Failed to submit form. Please try again.");
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
   const handleInputChange = (field: keyof typeof basicInfo, value: string) => {
     setBasicInfo({ ...basicInfo, [field]: value });
   };
-  const [loading, setLoading] = useState(true);
-  useEffect(() => {
-    // simulate loading
-    const timer = setTimeout(() => setLoading(false), 10000);
-
-    return () => clearTimeout(timer);
-  }, []);
+  const [submitting, setSubmitting] = useState(false);
 
   return (
     <div>
@@ -108,12 +107,12 @@ const FullForm = () => {
           </ul>
         </nav>
       </header>
-      {loading ? (
+      {submitting && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#2a2828] bg-opacity-50">
           <CircularProgress color="secondary" />
         </div>
-      ) : (
-        <>
+      )}
+      <>
           {showLogin && (
             <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
               <div className="bg-white rounded-lg overflow-hidden w-full max-w-4xl flex">
@@ -571,8 +570,7 @@ const FullForm = () => {
         </button>
       </form> */}
           </div>
-        </>
-      )}
+      </>
     </div>
   );
 };

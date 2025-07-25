@@ -32,16 +32,23 @@ const SliderInput = ({ label, id, value, onChange }: SliderInputProps) => {
         type="range"
         id={id}
         min={1}
-        max={3}
+        max={10}
         step={1}
         value={value}
         onChange={(e) => onChange(id, parseInt(e.target.value))}
         className="w-full appearance-none h-2 bg-gray-700 rounded-lg outline-none accent-indigo-500"
       />
       <div className="flex justify-between text-xs text-gray-400 px-1">
-        <span>Low</span>
-        <span>Medium</span>
-        <span>High</span>
+        <span>1</span>
+        <span>2</span>
+        <span>3</span>
+        <span>4</span>
+        <span>5</span>
+        <span>6</span>
+        <span>7</span>
+        <span>8</span>
+        <span>9</span>
+        <span>10</span>
       </div>
     </div>
   );
