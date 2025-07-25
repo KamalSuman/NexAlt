@@ -3,24 +3,18 @@ import numpy as np
 import os
 import logging
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class CurrencyMonteCarloOptimizer:
     def __init__(self):
         self.script_dir = os.path.dirname(__file__)
         self.currency_data = None
-        logger.info("CurrencyMonteCarloOptimizer initialized")
         
     def load_currency_data(self):
         """Load currency data from CSV"""
-        logger.info("Loading currency data from CSV")
         try:
             file_path = os.path.join(self.script_dir, "currency_stats_vs_inr.csv")
-            logger.info(f"Currency data file path: {file_path}")
             self.currency_data = pd.read_csv(file_path)
-            logger.info(f"Loaded {len(self.currency_data)} currencies from CSV")
             return True
         except Exception as e:
             logger.error(f"Failed to load currency data: {e}")
@@ -73,17 +67,12 @@ class CurrencyMonteCarloOptimizer:
     
     def get_currency_recommendations(self, investment_amount):
         """Get currency recommendations based on investment amount"""
-        logger.info(f"=== GET_CURRENCY_RECOMMENDATIONS CALLED ===")
-        logger.info(f"Investment amount: ₹{investment_amount:,.0f}")
-        
         if investment_amount < 25000:
             target_currencies = 2
         elif investment_amount < 100000:
             target_currencies = 3
         else:
             target_currencies = 5
-        
-        logger.info(f"Target number of currencies: {target_currencies}")
         
         if not self.load_currency_data():
             return None
@@ -132,6 +121,4 @@ class CurrencyMonteCarloOptimizer:
             'sharpe_ratio': best_portfolio['Sharpe Ratio']
         }
         
-        logger.info(f"Currency recommendations completed: {len(recommendations)} currencies")
-        logger.info("=== GET_CURRENCY_RECOMMENDATIONS COMPLETED ===")
         return result

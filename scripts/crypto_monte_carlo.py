@@ -3,24 +3,18 @@ import numpy as np
 import os
 import logging
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class CryptoMonteCarloOptimizer:
     def __init__(self):
         self.script_dir = os.path.dirname(__file__)
         self.crypto_data = None
-        logger.info("CryptoMonteCarloOptimizer initialized")
         
     def load_crypto_data(self):
         """Load crypto data from CSV"""
-        logger.info("Loading crypto data from CSV")
         try:
             file_path = os.path.join(self.script_dir, "crypto_stats.csv")
-            logger.info(f"Crypto data file path: {file_path}")
             self.crypto_data = pd.read_csv(file_path)
-            logger.info(f"Loaded {len(self.crypto_data)} cryptos from CSV")
             return True
         except Exception as e:
             logger.error(f"Failed to load crypto data: {e}")
@@ -73,9 +67,6 @@ class CryptoMonteCarloOptimizer:
     
     def get_crypto_recommendations(self, investment_amount):
         """Get crypto recommendations based on investment amount"""
-        logger.info(f"=== GET_CRYPTO_RECOMMENDATIONS CALLED ===")
-        logger.info(f"Investment amount: ₹{investment_amount:,.0f}")
-        
         if investment_amount < 10000:
             target_cryptos = 2
         elif investment_amount < 50000:
@@ -84,8 +75,6 @@ class CryptoMonteCarloOptimizer:
             target_cryptos = 5
         else:
             target_cryptos = 8
-        
-        logger.info(f"Target number of cryptos: {target_cryptos}")
         
         if not self.load_crypto_data():
             return None
@@ -127,6 +116,4 @@ class CryptoMonteCarloOptimizer:
             'sharpe_ratio': best_portfolio['Sharpe Ratio']
         }
         
-        logger.info(f"Crypto recommendations completed: {len(recommendations)} cryptos")
-        logger.info("=== GET_CRYPTO_RECOMMENDATIONS COMPLETED ===")
         return result

@@ -6,29 +6,21 @@ import warnings
 import logging
 warnings.filterwarnings('ignore')
 
-# Configure logging
-logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class AdvancedMonteCarloOptimizer:
     def __init__(self):
         self.script_dir = os.path.dirname(__file__)
         self.stock_data = None
-        logger.info("AdvancedMonteCarloOptimizer initialized")
         
     def load_stock_data(self):
         """Load stock data with fallback mechanism"""
-        logger.info("Loading stock data...")
         try:
             # Try to fetch fresh data
             from fetch_stock_data import fetch_nifty100_data
-            logger.info("Fetching fresh data from Yahoo Finance...")
             self.stock_data = fetch_nifty100_data()
-            logger.info("Successfully fetched fresh stock data")
             return True
         except Exception as e:
-            logger.warning(f"Failed to fetch fresh data: {e}")
-            
             # Fallback to existing simulation data or generate it
             try:
                 # Look for existing simulation data files
@@ -37,21 +29,15 @@ class AdvancedMonteCarloOptimizer:
                     latest_file = max(files)
                     file_path = os.path.join(self.script_dir, latest_file)
                     self.stock_data = pd.read_csv(file_path)
-                    logger.info(f"Using cached simulation data: {latest_file}")
-                    logger.info(f"Loaded {len(self.stock_data)} stocks from cache")
                     return True
                 else:
                     # Generate simulation data from existing stock_data.csv
                     from generate_simulation_data import generate_simulation_data_from_existing
                     self.stock_data = generate_simulation_data_from_existing()
-                    logger.info("Generated new simulation data from stock_data.csv")
-                    logger.info(f"Generated data for {len(self.stock_data)} stocks")
                     return True
             except Exception as e2:
                 logger.error(f"Failed to load/generate simulation data: {e2}")
             
-            # This should not happen now since we generate data above
-            logger.error("All data sources failed")
             return False
     
     def run_monte_carlo_simulation(self, num_simulations=10000):
@@ -122,8 +108,6 @@ class AdvancedMonteCarloOptimizer:
         if len(current_data) <= target_count:
             return current_data
         
-        logger.info(f"Running Monte Carlo on {len(current_data)} stocks for pruning...")
-        
         # Temporarily set stock_data for simulation
         original_data = self.stock_data
         self.stock_data = current_data
@@ -135,7 +119,6 @@ class AdvancedMonteCarloOptimizer:
         self.stock_data = original_data
         
         if results_df is None:
-            logger.warning("Monte Carlo simulation failed during pruning")
             return current_data
         
         # Get best portfolio weights
@@ -151,14 +134,10 @@ class AdvancedMonteCarloOptimizer:
         
         # Return filtered data
         filtered_data = current_data[current_data['Ticker'].isin(top_tickers)].reset_index(drop=True)
-        logger.info(f"Pruned from {len(current_data)} to {len(filtered_data)} stocks")
         return filtered_data
     
     def get_stock_recommendations(self, investment_amount):
         """Get stock recommendations with iterative pruning based on investment amount"""
-        logger.info(f"=== GET_STOCK_RECOMMENDATIONS CALLED ===")
-        logger.info(f"Investment amount: ₹{investment_amount:,.0f}")
-        
         # Determine number of stocks based on investment amount
         if investment_amount < 50000:
             target_stocks = 3
@@ -173,22 +152,14 @@ class AdvancedMonteCarloOptimizer:
         else:
             target_stocks = 18
         
-        logger.info(f"Target number of stocks: {target_stocks}")
-        
         if not self.load_stock_data():
-            logger.error("Failed to load stock data")
             return None
         
         current_stocks = self.stock_data.copy()
         
-        logger.info(f"Starting with {len(current_stocks)} stocks")
-        logger.info(f"Target: {target_stocks} stocks for investment of Rs.{investment_amount:,}")
-        
         # Iterative pruning process
         iteration = 1
         while len(current_stocks) > target_stocks:
-            logger.info(f"Iteration {iteration}: Processing {len(current_stocks)} stocks")
-            
             # Determine next pruning target
             if len(current_stocks) > target_stocks * 3:
                 next_target = max(target_stocks * 2, len(current_stocks) // 2)
@@ -199,15 +170,11 @@ class AdvancedMonteCarloOptimizer:
             
             # Prune stocks
             current_stocks = self.prune_stocks(current_stocks, next_target)
-            logger.info(f"Pruned to {len(current_stocks)} stocks")
             
             iteration += 1
             
             if iteration > 8:  # Safety break
                 break
-        
-        # Final optimization with remaining stocks
-        logger.info(f"Final optimization with {len(current_stocks)} stocks...")
         
         # Set current stocks for final simulation
         self.stock_data = current_stocks
@@ -254,10 +221,6 @@ class AdvancedMonteCarloOptimizer:
             'var_95': best_portfolio['VaR (95%)'] * 252 * 100,
             'total_amount': investment_amount
         }
-        
-        logger.info(f"Equity recommendations completed: {len(recommendations)} stocks")
-        logger.info(f"Portfolio metrics - Return: {result['portfolio_return']:.2f}%, Volatility: {result['portfolio_volatility']:.2f}%, Sharpe: {result['sharpe_ratio']:.4f}")
-        logger.info("=== GET_STOCK_RECOMMENDATIONS COMPLETED ===")
         
         return result
 
