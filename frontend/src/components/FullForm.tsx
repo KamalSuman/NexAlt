@@ -78,7 +78,6 @@ const FullForm = () => {
             nexAlt.ai
           </h1>
         </Link>
-        {/* <img src={Logo} alt="Logo" className="h-6" /> */}
         <nav>
           <ul className="flex gap-6 text-sm font-medium items-center">
             <li>
@@ -288,10 +287,10 @@ const FullForm = () => {
                     </div>
                   </div>
 
-                  {/* Annual Income */}
+                  {/* Monthly Income */}
                   <div className="relative space-y-1">
                     <label className="block text-sm text-gray-300 ml-2">
-                      Income
+                      Monthly Income
                     </label>
                     <div className="relative">
                       <img
@@ -302,7 +301,7 @@ const FullForm = () => {
                       />
                       <input
                         type="number"
-                        placeholder="Enter your income"
+                        placeholder="Enter your monthly income"
                         value={basicInfo.income}
                         onChange={(e) =>
                           handleInputChange("income", e.target.value)
@@ -334,10 +333,10 @@ const FullForm = () => {
                     </div>
                   </div>
 
-                  {/* Annual Expenses */}
+                  {/* Monthly Expenses */}
                   <div className="relative space-y-1">
                     <label className="block text-sm text-gray-300 ml-2">
-                      Annual Expenses
+                      Monthly Expenses
                     </label>
                     <div className="relative">
                       <BanknoteArrowDown
@@ -346,7 +345,7 @@ const FullForm = () => {
                       />
                       <input
                         type="number"
-                        placeholder="Enter your annual expenses"
+                        placeholder="Enter your monthly expenses"
                         value={basicInfo.expenses}
                         onChange={(e) =>
                           handleInputChange("expenses", e.target.value)
@@ -356,10 +355,10 @@ const FullForm = () => {
                     </div>
                   </div>
 
-                  {/* Annual EMI */}
+                  {/* Monthly EMI */}
                   <div className="relative space-y-1">
                     <label className="block text-sm text-gray-300 ml-2">
-                      Annual EMI
+                      Monthly EMI
                     </label>
                     <div className="relative">
                       <BanknoteArrowDown
@@ -368,7 +367,7 @@ const FullForm = () => {
                       />
                       <input
                         type="number"
-                        placeholder="Enter EMI amount"
+                        placeholder="Enter monthly EMI amount"
                         value={basicInfo.emi}
                         onChange={(e) =>
                           handleInputChange("emi", e.target.value)
@@ -378,27 +377,7 @@ const FullForm = () => {
                     </div>
                   </div>
 
-                  {/* Liquidity Need */}
-                  <div className="relative space-y-1">
-                    <label className="block text-sm text-gray-300 ml-2">
-                      Liquidity Need
-                    </label>
-                    <div className="relative">
-                      <BanknoteArrowDown
-                        className="absolute left-3 top-3 text-gray-400"
-                        size={18}
-                      />
-                      <input
-                        type="number"
-                        placeholder="Enter liquidity need"
-                        value={basicInfo.liquidity}
-                        onChange={(e) =>
-                          handleInputChange("liquidity", e.target.value)
-                        }
-                        className="pl-10 bg-[#1f2937] p-3 rounded-md outline-none text-sm w-full mt-1"
-                      />
-                    </div>
-                  </div>
+
 
                   {/* Dependents */}
                   <div className="relative space-y-1">
@@ -448,6 +427,8 @@ const FullForm = () => {
                 <RiskSliderForm
                   preferences={preferences}
                   setPreferences={setPreferences}
+                  liquidity={Number(basicInfo.liquidity)}
+                  onLiquidityChange={(value) => handleInputChange("liquidity", value.toString())}
                 />
               )}
 

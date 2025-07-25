@@ -17,6 +17,8 @@ type SliderInputProps = {
 type RiskSliderFormProps = {
   preferences: Preferences;
   setPreferences: React.Dispatch<React.SetStateAction<Preferences>>;
+  liquidity: number;
+  onLiquidityChange: (value: number) => void;
 };
 
 const SliderInput = ({ label, id, value, onChange }: SliderInputProps) => {
@@ -57,6 +59,8 @@ const SliderInput = ({ label, id, value, onChange }: SliderInputProps) => {
 const RiskSliderForm = ({
   preferences,
   setPreferences,
+  liquidity,
+  onLiquidityChange,
 }: RiskSliderFormProps) => {
   const handleSliderChange = (id: keyof Preferences, value: number) => {
     setPreferences((prev) => ({ ...prev, [id]: value }));
@@ -88,6 +92,37 @@ const RiskSliderForm = ({
         value={preferences.awareness}
         onChange={handleSliderChange}
       />
+      
+      {/* Liquidity Need */}
+      <div className="bg-[#1f2937] p-4 rounded-xl space-y-2 w-full">
+        <div className="flex items-center justify-between">
+          <label className="text-white font-medium text-sm">
+            Liquidity Need
+          </label>
+          <Info className="text-gray-400 w-4 h-4 cursor-pointer" />
+        </div>
+        <input
+          type="range"
+          min={1}
+          max={10}
+          step={1}
+          value={liquidity}
+          onChange={(e) => onLiquidityChange(parseInt(e.target.value))}
+          className="w-full appearance-none h-2 bg-gray-700 rounded-lg outline-none accent-indigo-500"
+        />
+        <div className="flex justify-between text-xs text-gray-400 px-1">
+          <span>1</span>
+          <span>2</span>
+          <span>3</span>
+          <span>4</span>
+          <span>5</span>
+          <span>6</span>
+          <span>7</span>
+          <span>8</span>
+          <span>9</span>
+          <span>10</span>
+        </div>
+      </div>
     </div>
   );
 };

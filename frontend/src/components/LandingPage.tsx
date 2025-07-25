@@ -28,7 +28,6 @@ export default function LandingPage() {
         <h1 className="text-3xl font-bold text-black cursor-pointer">
           nexAlt.ai
         </h1>
-        {/* <img src={Logo} alt="Logo" className="h-6" /> */}
         <nav>
           <ul className="flex gap-6 text-sm font-medium items-center">
             <li>
@@ -128,7 +127,7 @@ export default function LandingPage() {
       <section id="contact" className="py-16 px-6 bg-white text-center">
         <h3 className="text-2xl font-bold mb-4">Get in Touch</h3>
         <p className="text-gray-600 mb-6">
-          Interested in our intelligent portfolio system? Let’s talk.
+          Interested in our intelligent portfolio system? Let's talk.
         </p>
         <a
           href="mailto:info@smartportfolio.ai"

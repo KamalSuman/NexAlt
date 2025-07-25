@@ -36,7 +36,6 @@ media/
 *.local
 
 # Model files (large binary files)
-*.joblib
 *.pkl
 *.h5
 
